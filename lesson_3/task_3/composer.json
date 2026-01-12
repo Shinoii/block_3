@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "doctrine/orm": "^3.5",
+        "symfony/cache": "^8.0",
+        "symfony/var-exporter": "7.4"
+    }
+}
