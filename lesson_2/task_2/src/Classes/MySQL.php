@@ -33,7 +33,7 @@ class MySQL
     public function getUsers(): string
     {
         try{
-            $sql = "SELECT * FROM users_password";
+            $sql = "SELECT * FROM users";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll();
@@ -54,7 +54,7 @@ class MySQL
             $this->hashPassword($password);
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO users_password (name, email, password) VALUES (:name, :email, :password)";
+            $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
                 'name' => $name,
