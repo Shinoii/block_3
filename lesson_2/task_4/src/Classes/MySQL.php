@@ -33,7 +33,7 @@ class MySQL
     public function getUsers(): string
     {
         try{
-            $sql = "SELECT * FROM users_password";
+            $sql = "SELECT * FROM users";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll();
@@ -54,11 +54,11 @@ class MySQL
             $this->hashPassword($password);
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO users_password (name, email, password) VALUES (:name, :email, :password)";
+            $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
             $stmt = $this->pdo->prepare($sql);
 
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-            $stmt->bindParam(':email', $email, PDO::PARAM_STR, );
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
 
             $stmt->execute();
@@ -72,7 +72,7 @@ class MySQL
     public function deleteUser(int $id): string
     {
         try{
-            $sql = "DELETE FROM users_password WHERE id = :id";
+            $sql = "DELETE FROM users WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
                 'id' => $id
@@ -87,7 +87,7 @@ class MySQL
     public function getUserByEmail(string $email): string
     {
         try{
-            $sql = "SELECT * FROM users_password WHERE email = :email";
+            $sql = "SELECT * FROM users WHERE email = :email";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->execute();
